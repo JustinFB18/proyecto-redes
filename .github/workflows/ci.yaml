@@ -1,0 +1,38 @@
+name: Connect to VPN and SSH
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  connect_vpn_and_ssh:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install OpenConnect
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y openconnect
+
+      - name: Connect to VPN
+        id: vpn_connection
+        run: |
+          echo "${{ secrets.VPN_PASSWORD }}" | sudo openconnect --user=jusfb18 devnetsandbox-usw1-reservation.cisco.com:20212 --passwd-on-stdin || {
+            echo "VPN connection failed, retrying..."
+            sleep 5
+            echo "${{ secrets.VPN_PASSWORD }}" | sudo openconnect --user=jusfb18 devnetsandbox-usw1-reservation.cisco.com:20212 --passwd-on-stdin
+          }
+
+      - name: Install SSHpass
+        run: sudo apt-get install -y sshpass
+
+      - name: Connect to remote machine and run commands
+        run: |
+          sshpass -p "${{ secrets.SSH_PASSWORD }}" ssh -o StrictHostKeyChecking=no developer@10.10.20.50 << EOF
+            hostnamectl
+            hostname -i
+          EOF
