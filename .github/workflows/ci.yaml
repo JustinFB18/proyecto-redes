@@ -13,22 +13,31 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Install OpenConnect
+      - name: Install OpenConnect and SSHpass
         run: |
           sudo apt-get update
-          sudo apt-get install -y openconnect
+          sudo apt-get install -y openconnect sshpass
 
-      - name: Connect to VPN
+      - name: Connect to VPN in background
         id: vpn_connection
         run: |
-          echo "${{ secrets.VPN_PASSWORD }}" | sudo openconnect --user=jusfb18 devnetsandbox-usw1-reservation.cisco.com:20212 --passwd-on-stdin || {
-            echo "VPN connection failed, retrying..."
+          sudo bash -c "echo '${{ secrets.VPN_PASSWORD }}' | openconnect --background --user=jusfb18 devnetsandbox-usw1-reservation.cisco.com:20212 --passwd-on-stdin"
+        
+      - name: Wait for VPN to connect
+        run: |
+          echo "Waiting for VPN connection..."
+          for i in {1..10}; do
+            if ifconfig | grep tun0; then
+              echo "VPN is connected"
+              break
+            fi
+            echo "VPN not connected yet, retrying in 5 seconds..."
             sleep 5
-            echo "${{ secrets.VPN_PASSWORD }}" | sudo openconnect --user=jusfb18 devnetsandbox-usw1-reservation.cisco.com:20212 --passwd-on-stdin
-          }
-
-      - name: Install SSHpass
-        run: sudo apt-get install -y sshpass
+          done
+          if ! ifconfig | grep tun0; then
+            echo "VPN connection failed"
+            exit 1
+          fi
 
       - name: Connect to remote machine and run commands
         run: |
