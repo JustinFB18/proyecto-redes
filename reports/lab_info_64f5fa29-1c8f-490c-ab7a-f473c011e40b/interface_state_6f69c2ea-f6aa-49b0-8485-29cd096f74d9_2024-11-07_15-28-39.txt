@@ -1,0 +1,13 @@
+=== interface_state_6f69c2ea-f6aa-49b0-8485-29cd096f74d9_2024-11-07_15-28-39.txt - 2024-11-07_15-28-39 ===
+{
+    "id": "6f69c2ea-f6aa-49b0-8485-29cd096f74d9",
+    "lab_id": "64f5fa29-1c8f-490c-ab7a-f473c011e40b",
+    "node": "e1376866-336a-449b-80ab-70d87adad121",
+    "label": "Loopback0",
+    "slot": null,
+    "type": "loopback",
+    "mac_address": null,
+    "is_connected": false,
+    "state": "STARTED"
+}
+

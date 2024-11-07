@@ -22,7 +22,7 @@ jobs:
       - name: Connect to VPN in background
         id: vpn_connection
         run: |
-          sudo bash -c "echo '${{ secrets.VPN_PASSWORD }}' | openconnect --background --user=${{ secrets.VPN_USER }} devnetsandbox-usw1-reservation.cisco.com:20299 --passwd-on-stdin"
+          sudo bash -c "echo '${{ secrets.VPN_PASSWORD }}' | openconnect --background --user=${{ secrets.VPN_USER }} {{ secrets.VPN_URL }} --passwd-on-stdin"
         
       - name: Wait for VPN to connect
         run: |
@@ -51,11 +51,22 @@ jobs:
           source .venv/bin/activate
           pip install -r requirements.txt
 
-      - name: Run Python script
+      - name: Getting monitoring data
         run: |
           source .venv/bin/activate
           python3 monitor_api/main.py
+      
+      - name: Report (Health System)
+        run: |
+          source .venv/bin/activate
           python3 parsers/parse_health_response.py
+      
+      - name: Report (Nodes and Interface)
+        run: |
+          source .venv/bin/activate
+          python3 parsers/parse_node.py
+          python3 parsers/parse_interfaces.py
+
 
       - name: Disconnect VPN
         if: always()

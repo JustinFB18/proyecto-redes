@@ -1,0 +1,22 @@
+=== interface_state_4789839c-95d6-405e-b416-b0f750c0c359_2024-11-07_15-28-49.txt - 2024-11-07_15-28-49 ===
+{
+    "id": "4789839c-95d6-405e-b416-b0f750c0c359",
+    "lab_id": "64f5fa29-1c8f-490c-ab7a-f473c011e40b",
+    "node": "09a05216-b660-47cb-81ff-034e94dc1f2f",
+    "label": "Ethernet0/2",
+    "slot": 2,
+    "type": "physical",
+    "mac_address": "aa:bb:cc:00:03:20",
+    "is_connected": true,
+    "state": "STARTED",
+    "operational": {
+        "device_name": null,
+        "mac_address": "aa:bb:cc:00:03:20",
+        "dst_udp_port": null,
+        "src_udp_port": null
+    },
+    "device_name": null,
+    "dst_udp_port": null,
+    "src_udp_port": null
+}
+

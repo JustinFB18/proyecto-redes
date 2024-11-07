@@ -1,0 +1,53 @@
+=== node_state_e1376866-336a-449b-80ab-70d87adad121_2024-11-07_15-28-39.txt - 2024-11-07_15-28-39 ===
+{
+    "boot_disk_size": 1,
+    "configuration": "Building configuration...\n\nCurrent configuration : 3905 bytes\n!\n! Last configuration change at 01:26:51 UTC Thu Oct 10 2024\n!\nversion 17.12\nservice timestamps debug datetime msec\nservice timestamps log datetime msec\n!\nhostname SW2\n!\nboot-start-marker\nboot-end-marker\n!\n!\nvrf definition Mgmt-intf\n !\n address-family ipv4\n exit-address-family\n!\nno logging console\nno aaa new-model\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\nip audit notify log\nip audit po max-events 100\nip domain name virl.info\nip cef\nlogin on-success log\nno ipv6 cef\n!\n!\n!\n!\n!\n!\n!\nvtp domain virl.lab\nvtp mode transparent\nvtp version 1\nmultilink bundle-name authenticated\n!\ncrypto pki trustpoint TP-self-signed-131184644\n enrollment selfsigned\n subject-name cn=IOS-Self-Signed-Certificate-131184644\n revocation-check none\n rsakeypair TP-self-signed-131184644\n hash sha256\n!\n!\ncrypto pki certificate chain TP-self-signed-131184644\n certificate self-signed 01\n  3082032E 30820216 A0030201 02020101 300D0609 2A864886 F70D0101 0B050030\n  30312E30 2C060355 04030C25 494F532D 53656C66 2D536967 6E65642D 43657274\n  69666963 6174652D 31333131 38343634 34301E17 0D323431 30303931 37323933\n  375A170D 33343130 30393137 32393337 5A303031 2E302C06 03550403 0C25494F\n  532D5365 6C662D53 69676E65 642D4365 72746966 69636174 652D3133 31313834\n  36343430 82012230 0D06092A 864886F7 0D010101 05000382 010F0030 82010A02\n  82010100 CC8958BF 530C350D 054F1C39 9CDDAF40 F3DED466 EF7F0962 388C0390\n  CD558402 234E4495 B4A12BD7 756AB1FB 2E8AA8D3 EF0518FD 73DD5BEF C163E05D\n  79916D13 376FAEDD 2E23A773 94D38DD6 DCBD7AFF A9DDAF07 83B752DF 60082402\n  B612E33E 6998192A 8E3D3689 C753A498 79400967 1C626991 93A92F98 2FC35217\n  2F26A8AB 8ED69C3E A92DB65C 8BE28068 3C21CF34 40AAB543 65DD339E 642B9048\n  1382BD0F 02B8634B 5779819A 427B36E7 83E35FCD C59CF8BA D708E029 FE0A2EBA\n  AAEB1FA0 1CEB3A78 B1DE1787 2672FE9B A654518F 4C8F2E35 7AE5DFB0 482B9F1D\n  04C2640F E58B441E 82A883DE 986E0009 B0C64919 CEC8891C 8145C624 944141D8\n  85477FE9 02030100 01A35330 51301D06 03551D0E 04160414 734F04A9 B4D29C25\n  8E630457 6F96DA9B BB6FCC96 301F0603 551D2304 18301680 14734F04 A9B4D29C\n  258E6304 576F96DA 9BBB6FCC 96300F06 03551D13 0101FF04 05300301 01FF300D\n  06092A86 4886F70D 01010B05 00038201 010038FD E4C2D574 FD377B80 C3A399F7\n  71C76EA2 337BC65D A1DFDCF8 C29907EF 14A7B1D1 02D74C0F 93557243 1206A236\n  A669F555 F4F3D644 98E412F9 E6ABC2A9 4FA7C2C6 AFD288FA DEA11118 A8030DED\n  8D23FB53 FA3689AA 9424A233 EB8A4ACB 91963786 AC6D8EA2 1EEED084 6F10FDB3\n  1C82028A 8F35E5B2 229613F3 4AF6C25F 2EC53472 E6BDC4B2 5079347A F4EB3F38\n  4DB8F902 1EA7C6F2 D317EC29 5CCE56B1 65C9D914 245BB26F C0D1FA00 EF409AB6\n  9786727B 5845C469 ACA8BC8D 0C9F4ED8 F1B2C6FD 28D35CA8 0A4E773C BBB7DA0B\n  B45A1C66 130FDBC8 CD0BF382 A7CA254E 47F71A10 63AC32E6 BC108C5A E064EE26\n  F26B85E6 A1F5C39D A1F37C83 B6ABA73F B1A4\n  \tquit\n!\n!\nmemory free low-watermark processor 80589\n!\n!\nspanning-tree mode pvst\nspanning-tree extend system-id\nenable password cisco\n!\nusername cisco privilege 15 password 0 cisco\n!\nvlan internal allocation policy ascending\n!\nvlan 30,40\nno cdp run\n!\n!\n!\n!\n!\ninterface Loopback0\n description to\n no ip address\n shutdown\n!\ninterface Ethernet0/0\n switchport access vlan 30\n switchport mode access\n!\ninterface Ethernet0/1\n switchport access vlan 40\n switchport mode access\n!\ninterface Ethernet0/2\n switchport access vlan 40\n switchport mode access\n!\ninterface Ethernet0/3\n description to port3.sandbox-backend\n no switchport\n vrf forwarding Mgmt-intf\n ip address 10.10.20.174 255.255.255.0\n!\nip forward-protocol nd\n!\n!\nip http server\nip http secure-server\nip ssh bulk-mode 131072\nip ssh server algorithm encryption aes128-ctr aes192-ctr aes256-ctr\nip ssh client algorithm encryption aes128-ctr aes192-ctr aes256-ctr\nip route vrf Mgmt-intf 0.0.0.0 0.0.0.0 10.10.20.254\n!\n!\n!\n!\n!\n!\ncontrol-plane\n!\n!\n!\nline con 0\n exec-timeout 0 0\n logging synchronous\nline aux 0\nline vty 0 4\n exec-timeout 0 0\n login local\n transport input telnet ssh\n!\n!\nend",
+    "cpu_limit": 100,
+    "cpus": 0,
+    "data_volume": 0,
+    "hide_links": false,
+    "id": "e1376866-336a-449b-80ab-70d87adad121",
+    "image_definition": "ioll2-xe-17-12-01",
+    "lab_id": "64f5fa29-1c8f-490c-ab7a-f473c011e40b",
+    "label": "SW2",
+    "node_definition": "ioll2-xe",
+    "parameters": {},
+    "pinned_compute_id": null,
+    "ram": 1024,
+    "tags": [],
+    "x": 120,
+    "y": 0,
+    "state": "BOOTED",
+    "boot_progress": "Booted",
+    "operational": {
+        "compute_id": "8fe80b04-3a8d-4136-8c13-c029931cf407",
+        "boot_disk_size": 1,
+        "cpu_limit": 100,
+        "cpus": 0,
+        "data_volume": 0,
+        "ram": 1024,
+        "image_definition": "ioll2-xe-17-12-01",
+        "vnc_key": null,
+        "serial_consoles": [
+            {
+                "console_key": "c3c2f1d6-5175-4770-a1fa-5ba2032c8ab7",
+                "device_number": 0,
+                "label": "Line #0"
+            }
+        ],
+        "resource_pool": null,
+        "iol_app_id": 2
+    },
+    "compute_id": "8fe80b04-3a8d-4136-8c13-c029931cf407",
+    "vnc_key": null,
+    "serial_consoles": [
+        {
+            "console_key": "c3c2f1d6-5175-4770-a1fa-5ba2032c8ab7",
+            "device_number": 0,
+            "label": "Line #0"
+        }
+    ],
+    "resource_pool": null,
+    "iol_app_id": 2
+}
+
