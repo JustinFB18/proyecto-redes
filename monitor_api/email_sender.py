@@ -20,7 +20,7 @@ def send_email(recipient_email, subject, body):
     html_end = "<p>Atentamente, <br>Su equipo de soporte</p></body></html>"
     
     # Combina el formato inicial, el cuerpo y el formato final
-    full_body = html_start + body + html_end
+    full_body = html_start + str(body) + html_end
 
     # Attach the email body
     msg.attach(MIMEText(full_body, 'html'))
