@@ -1,0 +1,25 @@
+{
+    "email_recipients": [
+      {
+        "name": "Justin Fernandez Badilla",
+        "email": "jusfb18@gmail.com",
+        "role": "Administrador"
+      },
+      {
+        "name": "Diana Mejias",
+        "email": "academicodiana08@gmail.com",
+        "role": "Supervisor"
+      },
+      {
+        "name": "Irene Montero",
+        "email": "irmunoz@estudiantec.cr",
+        "role": "Desarrolladora"
+      },
+      {
+        "name": "Jimena Leon Huertas",
+        "email": "mena.leon@estudiantec.cr",
+        "role": "Analista"
+      }
+    ]
+  }
+  

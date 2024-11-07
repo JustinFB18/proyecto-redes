@@ -62,10 +62,13 @@ jobs:
           python3 parsers/parse_health_response.py
       
       - name: Report (Nodes and Interface)
+        env:
+          EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
         run: |
           source .venv/bin/activate
           python3 parsers/parse_node.py
           python3 parsers/parse_interfaces.py
+          python3 monitor_api/email_sender.py
 
 
       - name: Disconnect VPN
