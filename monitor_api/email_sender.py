@@ -16,7 +16,7 @@ def send_email(recipient_email, subject, body):
     msg['Subject'] = subject
 
     # Attach the email body
-    msg.attach(MIMEText(body, 'plain'))
+    msg.attach(MIMEText(str(body), 'plain'))
 
     # Set up the server
     try:
@@ -34,10 +34,10 @@ def send_email(recipient_email, subject, body):
         server.quit()
 
 
-with open('correos.json', 'r') as file:
+with open('./monitor_api/correos.json', 'r') as file:
     data = json.load(file)
-
-with open('report.txt', 'r') as file:
+    
+with open('./monitor_api/report.txt', 'r') as file:
     report = file.readlines()
 
 current_time = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")  # Formato de fecha y hora
