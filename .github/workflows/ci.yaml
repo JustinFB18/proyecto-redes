@@ -5,25 +5,56 @@ on:
     branches:
       - main
       - monitors
+  schedule:
+    - cron: '*/2 * * * *'  # Ejecuta el pipeline cada 2 minutos
 
 jobs:
   connect_vpn_and_ssh:
     runs-on: ubuntu-latest
 
     steps:
+      # Step 1: Checkout code
       - name: Checkout code
         uses: actions/checkout@v2
 
+      # Step 2: Install OpenConnect and SSHpass
       - name: Install OpenConnect and SSHpass
         run: |
           sudo apt-get update
           sudo apt-get install -y openconnect sshpass
 
+      # Step 3: Track execution count
+      - name: Check execution count for this commit
+        id: check_count
+        run: |
+          echo "Checking execution count for commit ${{ github.sha }}"
+          
+          # Crea un archivo temporal para almacenar la cantidad de ejecuciones
+          if [[ -f "execution_count.txt" ]]; then
+            exec_count=$(cat execution_count.txt)
+          else
+            exec_count=0
+          fi
+          
+          # Incrementar el contador
+          exec_count=$((exec_count + 1))
+          
+          # Limitar a 2 ejecuciones por commit
+          if [ "$exec_count" -le 2 ]; then
+            echo "Execution count is $exec_count, proceeding..."
+            echo $exec_count > execution_count.txt  # Guardar el contador
+          else
+            echo "Already executed 2 times for this commit, skipping further execution."
+            exit 0
+          fi
+
+      # Step 4: Connect to VPN in background
       - name: Connect to VPN in background
         id: vpn_connection
         run: |
           sudo bash -c "echo '${{ secrets.VPN_PASSWORD }}' | openconnect --background --user=${{ secrets.VPN_USER }} ${{ secrets.VPN_URL }} --passwd-on-stdin"
-        
+
+      # Step 5: Wait for VPN to connect
       - name: Wait for VPN to connect
         run: |
           echo "Waiting for VPN connection..."
@@ -40,6 +71,7 @@ jobs:
             exit 1
           fi
 
+      # Step 6: Set up Python environment
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
@@ -51,26 +83,32 @@ jobs:
           source .venv/bin/activate
           pip install -r requirements.txt
 
+      # Step 7: Getting monitoring data
       - name: Getting monitoring data
         run: |
           source .venv/bin/activate
           python3 monitor_api/main.py
-      
+
+      # Step 8: Report (Health System)
       - name: Report (Health System)
         run: |
           source .venv/bin/activate
-          python3 parsers/parse_health_response.py
-      
+          output=$(python3 parsers/parse_health_response.py)
+          echo "$output"
+          echo "$output" | tail -n 6 >> ./monitor_api/report.txt
+
+      # Step 9: Report (Nodes and Interface)
       - name: Report (Nodes and Interface)
         env:
           EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
         run: |
           source .venv/bin/activate
-          python3 parsers/parse_node.py
-          python3 parsers/parse_interfaces.py
+          python3 parsers/parse_node.py >> ./monitor_api/report.txt
+          python3 parsers/parse_interfaces.py >> ./monitor_api/report.txt
           python3 monitor_api/email_sender.py
+          cat ./monitor_api/report.txt
 
-
+      # Step 10: Disconnect VPN
       - name: Disconnect VPN
         if: always()
         run: |

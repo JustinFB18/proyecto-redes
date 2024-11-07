@@ -2,6 +2,8 @@ import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import os
+import json
+from datetime import datetime
 
 PASSWORD = os.getenv('EMAIL_PASSWORD')
 
@@ -31,4 +33,14 @@ def send_email(recipient_email, subject, body):
     finally:
         server.quit()
 
-send_email("academicodiana08@gmail.com", "hola", "hola")
+
+with open('correos.json', 'r') as file:
+    data = json.load(file)
+
+with open('report.txt', 'r') as file:
+    report = file.readlines()
+
+current_time = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")  # Formato de fecha y hora
+
+for employee in data['email_recipients']:
+    send_email(employee['email'], f"Reporte {current_time} - {employee['name']}", report)
