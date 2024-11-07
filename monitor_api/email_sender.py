@@ -9,21 +9,29 @@ PASSWORD = os.getenv('EMAIL_PASSWORD')
 
 def send_email(recipient_email, subject, body):
     sender_email = "jusfb18@gmail.com"
+    
+    # Comienza el documento RTF
+    rtf_header = r"{\rtf1\ansi\ansicpg1252\uc1 \deff0\nouicompat \pard\sa200\sl276\slmult1\cf1\lang9"
+    
+    # Comienza el cuerpo del texto RTF con formato (en este ejemplo usaremos colores)
+    rtf_body = r"\cf2 "  # Color 2 (puedes mapear más colores según sea necesario)
+    rtf_body += body.replace('\x1b[31m', r'\cf1 ')  # Reemplaza el rojo ANSI con color RTF 1
+    rtf_body += r"\cf0 "  # Reset del color al final
+
+    # Finaliza el documento RTF
+    rtf_footer = r"\pard\nowidctlpar\hyphpar0\par}"
+    
+    # Junta todo el contenido RTF
+    full_rtf_body = rtf_header + rtf_body + rtf_footer
+    
     # Set up the MIME
     msg = MIMEMultipart()
     msg['From'] = sender_email
     msg['To'] = recipient_email
     msg['Subject'] = subject
 
-    # Formato HTML al principio y al final
-    html_start = "<html><body><h2>Estimado/a,</h2>"
-    html_end = "<p>Atentamente, <br>Su equipo de soporte</p></body></html>"
-    
-    # Combina el formato inicial, el cuerpo y el formato final
-    full_body = html_start + str(body) + html_end
-
-    # Attach the email body
-    msg.attach(MIMEText(full_body, 'html'))
+    # Attach the email body as RTF
+    msg.attach(MIMEText(full_rtf_body, 'rtf'))
 
     # Set up the server
     try:
