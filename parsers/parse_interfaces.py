@@ -72,7 +72,7 @@ def parse_all_nodes_response():
         # Parse file to get data fields
         node_data = parse_node_data(info['file_path'])
 
-        connection_status = f"{GREEN}True{RESET}" if node_data["is_connected"] else f"{RED}False{RESET}"
+        connection_status = f"True" if node_data["is_connected"] else f"False"
         
         
         # Add row to table

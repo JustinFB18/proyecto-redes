@@ -84,9 +84,9 @@ def parse_all_health_response():
 
     # Indicar el estado del último archivo
     if last_file_status=="Not Ok":
-        print(f"\nÚltima respuesta de salud: {last_file_name} - \033[31m{last_file_status}\033[0m")
+        print(f"\nÚltima respuesta de salud: {last_file_name} - {last_file_status}")
     else:
-        print(f"\nÚltima respuesta de salud: {last_file_name} - \033[32m{last_file_status}\033[0m")
+        print(f"\nÚltima respuesta de salud: {last_file_name} - {last_file_status}")
     print("="*70)
 
 # Llamar a la función para procesar todos los archivos de respuesta de salud
