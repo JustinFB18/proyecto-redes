@@ -1,0 +1,53 @@
+=== node_state_c95896a4-abdf-4963-9b87-ebf8807684c0_2024-11-07_15-20-07.txt - 2024-11-07_15-20-07 ===
+{
+    "boot_disk_size": 16,
+    "configuration": "# this is a shell script which will be sourced at boot\nhostname Server2\n# configurable user account\nUSERNAME=cisco\nPASSWORD=cisco\n# no password for tc user by default\nTC_PASSWORD=\nifconfig eth1 10.10.20.176 netmask 255.255.255.0",
+    "cpu_limit": 100,
+    "cpus": 1,
+    "data_volume": 0,
+    "hide_links": false,
+    "id": "c95896a4-abdf-4963-9b87-ebf8807684c0",
+    "image_definition": "server-tcl-14-0",
+    "lab_id": "64f5fa29-1c8f-490c-ab7a-f473c011e40b",
+    "label": "Server2",
+    "node_definition": "server",
+    "parameters": {},
+    "pinned_compute_id": null,
+    "ram": 256,
+    "tags": [],
+    "x": 200,
+    "y": 160,
+    "state": "BOOTED",
+    "boot_progress": "Booted",
+    "operational": {
+        "compute_id": "8fe80b04-3a8d-4136-8c13-c029931cf407",
+        "boot_disk_size": 16,
+        "cpu_limit": 100,
+        "cpus": 1,
+        "data_volume": 0,
+        "ram": 256,
+        "image_definition": "server-tcl-14-0",
+        "vnc_key": "f4a27050-9363-4c20-a209-46f622090200",
+        "serial_consoles": [
+            {
+                "console_key": "b5401301-3039-484c-ae88-4ec46677963d",
+                "device_number": 0,
+                "label": "Line #0"
+            }
+        ],
+        "resource_pool": null,
+        "iol_app_id": null
+    },
+    "compute_id": "8fe80b04-3a8d-4136-8c13-c029931cf407",
+    "vnc_key": "f4a27050-9363-4c20-a209-46f622090200",
+    "serial_consoles": [
+        {
+            "console_key": "b5401301-3039-484c-ae88-4ec46677963d",
+            "device_number": 0,
+            "label": "Line #0"
+        }
+    ],
+    "resource_pool": null,
+    "iol_app_id": null
+}
+

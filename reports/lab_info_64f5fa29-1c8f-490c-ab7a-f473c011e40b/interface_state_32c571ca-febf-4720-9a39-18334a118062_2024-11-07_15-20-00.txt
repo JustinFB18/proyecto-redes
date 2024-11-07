@@ -1,0 +1,13 @@
+=== interface_state_32c571ca-febf-4720-9a39-18334a118062_2024-11-07_15-20-00.txt - 2024-11-07_15-20-00 ===
+{
+    "id": "32c571ca-febf-4720-9a39-18334a118062",
+    "lab_id": "64f5fa29-1c8f-490c-ab7a-f473c011e40b",
+    "node": "87319c39-27db-4a2c-99bb-6344063075d0",
+    "label": "Loopback0",
+    "slot": null,
+    "type": "loopback",
+    "mac_address": null,
+    "is_connected": false,
+    "state": "STARTED"
+}
+

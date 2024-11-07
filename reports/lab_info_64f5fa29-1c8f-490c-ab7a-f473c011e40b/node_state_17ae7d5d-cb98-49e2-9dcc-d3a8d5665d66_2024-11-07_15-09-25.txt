@@ -1,0 +1,41 @@
+=== node_state_17ae7d5d-cb98-49e2-9dcc-d3a8d5665d66_2024-11-07_15-09-25.txt - 2024-11-07_15-09-25 ===
+{
+    "boot_disk_size": null,
+    "configuration": "System Bridge",
+    "cpu_limit": null,
+    "cpus": null,
+    "data_volume": null,
+    "hide_links": false,
+    "id": "17ae7d5d-cb98-49e2-9dcc-d3a8d5665d66",
+    "image_definition": null,
+    "lab_id": "64f5fa29-1c8f-490c-ab7a-f473c011e40b",
+    "label": "ext-conn-0",
+    "node_definition": "external_connector",
+    "parameters": {},
+    "pinned_compute_id": null,
+    "ram": null,
+    "tags": [],
+    "x": -680,
+    "y": -160,
+    "state": "BOOTED",
+    "boot_progress": "Booted",
+    "operational": {
+        "compute_id": "8fe80b04-3a8d-4136-8c13-c029931cf407",
+        "boot_disk_size": null,
+        "cpu_limit": null,
+        "cpus": null,
+        "data_volume": null,
+        "ram": null,
+        "image_definition": null,
+        "vnc_key": null,
+        "serial_consoles": [],
+        "resource_pool": null,
+        "iol_app_id": null
+    },
+    "compute_id": "8fe80b04-3a8d-4136-8c13-c029931cf407",
+    "vnc_key": null,
+    "serial_consoles": [],
+    "resource_pool": null,
+    "iol_app_id": null
+}
+

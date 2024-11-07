@@ -1,0 +1,53 @@
+=== node_state_f587f8d6-5579-4615-80a0-04c5df16360d_2024-11-07_15-09-23.txt - 2024-11-07_15-09-23 ===
+{
+    "boot_disk_size": 16,
+    "configuration": "# this is a shell script which will be sourced at boot\nhostname PC1\n# configurable user account\nUSERNAME=cisco\nPASSWORD=cisco\nifconfig eth1 10.10.20.177 netmask 255.255.255.0",
+    "cpu_limit": 100,
+    "cpus": 1,
+    "data_volume": 0,
+    "hide_links": false,
+    "id": "f587f8d6-5579-4615-80a0-04c5df16360d",
+    "image_definition": "alpine-desktop-3-19-1",
+    "lab_id": "64f5fa29-1c8f-490c-ab7a-f473c011e40b",
+    "label": "PC1",
+    "node_definition": "desktop",
+    "parameters": {},
+    "pinned_compute_id": null,
+    "ram": 1024,
+    "tags": [],
+    "x": -280,
+    "y": 160,
+    "state": "BOOTED",
+    "boot_progress": "Booted",
+    "operational": {
+        "compute_id": "8fe80b04-3a8d-4136-8c13-c029931cf407",
+        "boot_disk_size": 16,
+        "cpu_limit": 100,
+        "cpus": 1,
+        "data_volume": 0,
+        "ram": 1024,
+        "image_definition": "alpine-desktop-3-19-1",
+        "vnc_key": "9da6ada1-dddf-45de-b676-2e481f9d8152",
+        "serial_consoles": [
+            {
+                "console_key": "282aa0bb-c422-41c9-81e7-8930eb845eda",
+                "device_number": 0,
+                "label": "Line #0"
+            }
+        ],
+        "resource_pool": null,
+        "iol_app_id": null
+    },
+    "compute_id": "8fe80b04-3a8d-4136-8c13-c029931cf407",
+    "vnc_key": "9da6ada1-dddf-45de-b676-2e481f9d8152",
+    "serial_consoles": [
+        {
+            "console_key": "282aa0bb-c422-41c9-81e7-8930eb845eda",
+            "device_number": 0,
+            "label": "Line #0"
+        }
+    ],
+    "resource_pool": null,
+    "iol_app_id": null
+}
+
