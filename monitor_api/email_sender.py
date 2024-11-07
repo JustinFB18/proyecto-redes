@@ -1,37 +1,32 @@
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from email.mime.base import MIMEBase
+from email import encoders
 import os
 import json
 from datetime import datetime
 
 PASSWORD = os.getenv('EMAIL_PASSWORD')
 
-def send_email(recipient_email, subject, body):
+def send_email(recipient_email, subject, body, attachment_path):
     sender_email = "jusfb18@gmail.com"
-    
-    # Comienza el documento RTF
-    rtf_header = r"{\rtf1\ansi\ansicpg1252\uc1 \deff0\nouicompat \pard\sa200\sl276\slmult1\cf1\lang9"
-    
-    # Comienza el cuerpo del texto RTF con formato (en este ejemplo usaremos colores)
-    rtf_body = r"\cf2 "  # Color 2 (puedes mapear más colores según sea necesario)
-    rtf_body += str(body).replace('\x1b[31m', r'\cf1 ')  # Reemplaza el rojo ANSI con color RTF 1
-    rtf_body += r"\cf0 "  # Reset del color al final
-
-    # Finaliza el documento RTF
-    rtf_footer = r"\pard\nowidctlpar\hyphpar0\par}"
-    
-    # Junta todo el contenido RTF
-    full_rtf_body = rtf_header + rtf_body + rtf_footer
-    
+    msg.attach(MIMEText(body, 'plain'))
+    try:
+        attachment = open(attachment_path, "rb")
+        part = MIMEBase('application', 'octet-stream')
+        part.set_payload(attachment.read())
+        encoders.encode_base64(part)
+        part.add_header('Content-Disposition', f"attachment; filename= {attachment_path.split('/')[-1]}")
+        msg.attach(part)
+        attachment.close()
+    except Exception as e:
+        print(f"Error attaching file: {e}")
     # Set up the MIME
     msg = MIMEMultipart()
     msg['From'] = sender_email
     msg['To'] = recipient_email
     msg['Subject'] = subject
-
-    # Attach the email body as RTF
-    msg.attach(MIMEText(full_rtf_body, 'rtf'))
 
     # Set up the server
     try:
@@ -58,4 +53,5 @@ with open('./monitor_api/report.txt', 'r') as file:
 current_time = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")  # Formato de fecha y hora
 
 for employee in data['email_recipients']:
-    send_email(employee['email'], f"Reporte {current_time} - {employee['name']}", report)
+    message = f"Saludos cordiales {employee['name']} ({employee['role']})"
+    send_email(employee['email'], f"Reporte {current_time} - {employee['name']}", message ,"/monitor_api/report.txt")
