@@ -82,7 +82,8 @@ def parse_all_nodes_response():
         ])
 
     # Print the table
-    print(table)
+    #print(table)
+    return table.get_html_string()
 
 # Call the function to process all node response files
 parse_all_nodes_response()

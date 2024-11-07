@@ -9,24 +9,20 @@ from datetime import datetime
 
 PASSWORD = os.getenv('EMAIL_PASSWORD')
 
-def send_email(recipient_email, subject, body, attachment_path):
+def send_email(recipient_email, subject, body):
     sender_email = "jusfb18@gmail.com"
     msg = MIMEMultipart()
     msg['From'] = sender_email
     msg['To'] = recipient_email
     msg['Subject'] = subject
 
-    msg.attach(MIMEText(body, 'plain'))
-    try:
-        attachment = open(attachment_path, "rb")
-        part = MIMEBase('application', 'octet-stream')
-        part.set_payload(attachment.read())
-        encoders.encode_base64(part)
-        part.add_header('Content-Disposition', f"attachment; filename= {attachment_path.split('/')[-1]}")
-        msg.attach(part)
-        attachment.close()
-    except Exception as e:
-        print(f"Error attaching file: {e}")
+    html_start = "<html><body><h2>Estimado/a,</h2>"
+    html_end = "<p>Atentamente, <br>Su equipo de soporte</p></body></html>"
+    
+    # Combina el formato inicial, el cuerpo y el formato final
+    full_body = html_start + str(body) + html_end
+
+    msg.attach(MIMEText(str(full_body), 'html'))
     
     # Set up the server
     try:
@@ -48,10 +44,10 @@ with open('./monitor_api/correos.json', 'r') as file:
     data = json.load(file)
     
 with open('./monitor_api/report.txt', 'r') as file:
-    report = file.readlines()
+    report = file.read()
 
 current_time = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")  # Formato de fecha y hora
 
 for employee in data['email_recipients']:
-    message = f"Saludos cordiales {employee['name']} ({employee['role']})"
-    send_email(employee['email'], f"Reporte {current_time} - {employee['name']}", message ,"/monitor_api/report.txt")
+    message = f"Saludos cordiales {employee['name']} ({employee['role']})\n"+report
+    send_email(employee['email'], f"Reporte {current_time} - {employee['name']}", message)
