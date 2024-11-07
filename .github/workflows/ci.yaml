@@ -22,7 +22,7 @@ jobs:
       - name: Connect to VPN in background
         id: vpn_connection
         run: |
-          sudo bash -c "echo '${{ secrets.VPN_PASSWORD }}' | openconnect --background --user=${{ secrets.VPN_USER }} {{ secrets.VPN_URL }} --passwd-on-stdin"
+          sudo bash -c "echo '${{ secrets.VPN_PASSWORD }}' | openconnect --background --user=${{ secrets.VPN_USER }} ${{ secrets.VPN_URL }} --passwd-on-stdin"
         
       - name: Wait for VPN to connect
         run: |
