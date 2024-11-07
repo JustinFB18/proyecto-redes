@@ -74,7 +74,7 @@ def parse_all_nodes_response():
         table.add_row([
             node_data["label"],
             node_data["node_definition"],
-            f"{BLUE}{node_data['state']}{RESET}",  # Blue color for "State"
+            f"{node_data['state']}",  # Blue color for "State"
             node_data["image_definition"],
             node_data["ram"],
             node_id,

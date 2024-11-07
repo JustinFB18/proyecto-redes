@@ -49,5 +49,4 @@ with open('./monitor_api/report.txt', 'r') as file:
 current_time = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")  # Formato de fecha y hora
 
 for employee in data['email_recipients']:
-    message = f"Saludos cordiales {employee['name']} ({employee['role']}) \n "+report
-    send_email(employee['email'], f"Reporte {current_time} - {employee['name']}", message)
+    send_email(employee['email'], f"Reporte {current_time} - {employee['name']}", report)

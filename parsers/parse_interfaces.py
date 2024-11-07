@@ -79,7 +79,7 @@ def parse_all_nodes_response():
         table.add_row([
             node_data["label"],
             node_data["slot"],
-            f"{BLUE}{node_data['state']}{RESET}",  # Blue color for "State"
+            f"{node_data['state']}",  # Blue color for "State"
             connection_status,
             node_id,
             info['file_time']
