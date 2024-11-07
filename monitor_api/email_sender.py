@@ -15,7 +15,7 @@ def send_email(recipient_email, subject, body):
     
     # Comienza el cuerpo del texto RTF con formato (en este ejemplo usaremos colores)
     rtf_body = r"\cf2 "  # Color 2 (puedes mapear más colores según sea necesario)
-    rtf_body += body.replace('\x1b[31m', r'\cf1 ')  # Reemplaza el rojo ANSI con color RTF 1
+    rtf_body += str(body).replace('\x1b[31m', r'\cf1 ')  # Reemplaza el rojo ANSI con color RTF 1
     rtf_body += r"\cf0 "  # Reset del color al final
 
     # Finaliza el documento RTF
