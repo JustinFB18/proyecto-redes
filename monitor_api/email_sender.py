@@ -15,8 +15,15 @@ def send_email(recipient_email, subject, body):
     msg['To'] = recipient_email
     msg['Subject'] = subject
 
+    # Formato HTML al principio y al final
+    html_start = "<html><body><h2>Estimado/a,</h2>"
+    html_end = "<p>Atentamente, <br>Su equipo de soporte</p></body></html>"
+    
+    # Combina el formato inicial, el cuerpo y el formato final
+    full_body = html_start + body + html_end
+
     # Attach the email body
-    msg.attach(MIMEText(str(body), 'plain'))
+    msg.attach(MIMEText(full_body, 'html'))
 
     # Set up the server
     try:
