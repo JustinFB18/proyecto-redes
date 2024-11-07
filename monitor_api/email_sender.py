@@ -11,6 +11,11 @@ PASSWORD = os.getenv('EMAIL_PASSWORD')
 
 def send_email(recipient_email, subject, body, attachment_path):
     sender_email = "jusfb18@gmail.com"
+    msg = MIMEMultipart()
+    msg['From'] = sender_email
+    msg['To'] = recipient_email
+    msg['Subject'] = subject
+
     msg.attach(MIMEText(body, 'plain'))
     try:
         attachment = open(attachment_path, "rb")
@@ -22,12 +27,7 @@ def send_email(recipient_email, subject, body, attachment_path):
         attachment.close()
     except Exception as e:
         print(f"Error attaching file: {e}")
-    # Set up the MIME
-    msg = MIMEMultipart()
-    msg['From'] = sender_email
-    msg['To'] = recipient_email
-    msg['Subject'] = subject
-
+    
     # Set up the server
     try:
         server = smtplib.SMTP('smtp.gmail.com', 587)

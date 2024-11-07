@@ -3,6 +3,8 @@ import os
 from datetime import datetime
 import re
 from prettytable import PrettyTable
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfgen import canvas
 
 BLUE = '\033[94m'
 GREEN = '\033[92m'
@@ -89,6 +91,53 @@ def parse_all_nodes_response():
     print(table)
     return table
 
+def convert_table_to_pdf(data, headers=None, output_filename="table_output.pdf"):
+    """
+    Convierte una lista de datos en una tabla en un archivo PDF.
+    
+    :param data: Lista de filas de la tabla (cada fila es una lista de celdas).
+    :param headers: Opcional. Una lista de encabezados de columna.
+    :param output_filename: Nombre del archivo PDF de salida.
+    """
+    # Crear un objeto canvas para el PDF
+    c = canvas.Canvas(output_filename, pagesize=letter)
+    width, height = letter  # Tamaño de la página
+
+    # Establecer la posición inicial de la tabla
+    y_position = height - 40  # Inicia cerca de la parte superior
+    padding = 10  # Espaciado entre celdas
+    column_widths = [100, 100, 100, 100, 100, 100]  # Ancho de las columnas (ajustar según el contenido)
+
+    # Dibujar encabezados de la tabla
+    if headers:
+        x_position = 40  # Posición inicial horizontal
+        for i, header in enumerate(headers):
+            c.setFont("Helvetica-Bold", 10)
+            c.drawString(x_position, y_position, header)
+            x_position += column_widths[i] + padding  # Ajustar posición horizontal
+
+        y_position -= 20  # Baja para la siguiente fila
+
+    # Dibujar las filas de la tabla
+    c.setFont("Helvetica", 10)  # Fuente para las filas de datos
+    for row in data:
+        x_position = 40  # Posición inicial horizontal
+        for i, cell in enumerate(row):
+            c.drawString(x_position, y_position, str(cell))
+            x_position += column_widths[i] + padding  # Ajustar posición horizontal
+
+        y_position -= 20  # Baja para la siguiente fila
+
+        if y_position < 40:  # Si llega al final de la página, crea una nueva página
+            c.showPage()
+            y_position = height - 40  # Reiniciar posición vertical
+
+    # Guardar el PDF
+    c.save()
+    print(f"PDF guardado como {output_filename}")
+
+headers = ["Label", "Slot", "State", "Is Connected?", "nodeID", "Timestamp"]
 
 # Call the function to process all node response files
 parse_all_nodes_response()
+convert_table_to_pdf(data, headers, "node_report.pdf")
