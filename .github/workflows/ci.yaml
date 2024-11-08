@@ -6,7 +6,7 @@ on:
       - main
       - monitors
   schedule:
-    - cron: '*/2 * * * *'  # Ejecuta el pipeline cada 2 minutos
+    - cron: '0 0 * * *'  # Ejecuta el pipeline cada 2 minutos
 
 jobs:
   connect_vpn_and_ssh:
