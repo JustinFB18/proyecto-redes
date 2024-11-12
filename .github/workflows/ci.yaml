@@ -82,7 +82,7 @@ jobs:
           python3 parsers/parse_interfaces.py >> ./monitor_api/report.txt
           python3 monitor_api/email_sender.py
           cat ./monitor_api/report.txt
-
+ 
       # Step 10: Disconnect VPN
       - name: Disconnect VPN
         if: always()
